@@ -1,3 +1,8 @@
+/**
+ * This is a deprecated file. I suggest using my ProcessingNet
+ * extension instead of this for improved performance.
+ */
+
 PApplet mainApplet = this;
 
 class NetworkCoder {
@@ -16,9 +21,11 @@ class NetworkCoder {
   }
   
   byte[] read_bytes(int length) {
-    int start = millis();
+    while (client.available() < length) {}
     byte[] buffer = new byte[length];
-    client.readBytes(buffer);
+    for (int i = 0; i < length; i++) {
+      buffer[i] = (byte)client.read();
+    }
     return buffer;
   }
   

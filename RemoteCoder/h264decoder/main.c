@@ -75,6 +75,7 @@ int client_handler(FILE * client) {
             break;
         }
         int realSize = htonl(bigEndianSize);
+        if (DEBUG_ENABLED) printf("supposed encoded size: %d\n", realSize);
         uint8_t * h264Buffer = (uint8_t *)malloc(realSize);
         size_t got = fread(h264Buffer, 1, realSize, client);
         if (got != realSize) break;
