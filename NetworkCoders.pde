@@ -1,3 +1,5 @@
+PApplet mainApplet = this;
+
 class NetworkCoder {
   Client client;
   
@@ -14,11 +16,9 @@ class NetworkCoder {
   }
   
   byte[] read_bytes(int length) {
-    while (client.available() < length) {}
+    int start = millis();
     byte[] buffer = new byte[length];
-    for (int i = 0; i < length; i++) {
-      buffer[i] = (byte)client.read();
-    }
+    client.readBytes(buffer);
     return buffer;
   }
   
@@ -97,6 +97,7 @@ class NetworkDecoder extends NetworkCoder {
   }
   
   PImage image_from_bytes(byte[] buffer) {
+    int start = millis();
     PImage image = new PImage(width, height, RGB);
     image.loadPixels();
     color[] colors = image.pixels;
@@ -110,8 +111,8 @@ class NetworkDecoder extends NetworkCoder {
       }
     }
     image.updatePixels();
+    println("image_from_bytes time: " + (millis() - start)); 
     return image;
   }
 
 }
-

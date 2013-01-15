@@ -79,6 +79,7 @@ int client_handler(FILE * client) {
         size_t got = fread(h264Buffer, 1, realSize, client);
         if (got != realSize) break;
         char * decoded;
+        if (DEBUG_ENABLED) printf("client_handler: about to decode the RGB frame\n");
         if (decode_context_frame(context, h264Buffer, realSize, &decoded) != 0) {
             free(h264Buffer);
             result = 3;
@@ -90,6 +91,7 @@ int client_handler(FILE * client) {
             free(decoded);
             break;
         }
+        if (DEBUG_ENABLED) printf("client_handler: sent data\n");
         free(decoded);
     }
     
