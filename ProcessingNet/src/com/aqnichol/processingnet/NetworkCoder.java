@@ -40,6 +40,7 @@ public class NetworkCoder {
 	}
 	
 	public byte[] read(int length) throws IOException {
+		System.out.println("reading of length: " + length);
 		byte[] data = new byte[length];
 		this.input.readFully(data);
 		return data;

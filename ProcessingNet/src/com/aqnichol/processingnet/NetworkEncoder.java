@@ -50,6 +50,7 @@ public class NetworkEncoder extends NetworkCoder {
 
 		this.write(data);
 		int length = this.readInteger();
+		System.out.println("Encoded data length: " + length);
 		return this.read(length);
 	}
 
